@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iris Classification</title>
+  <script>
+    async function sendData() {
+      const A = document.getElementById("numA").value;
+      const B = document.getElementById("numB").value;
+      const C = document.getElementById("numC").value;
+      const D = document.getElementById("numD").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const ngrokUrl = "https://ada6-35-196-201-60.ngrok-free.app/classify"; // Replace with your actual ngrok URL
+
+      try {
+        const response = await fetch(ngrokUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Basic " + btoa(username + ":" + password)
+          },
+          body: JSON.stringify({
+            A: Number(A),
+            B: Number(B),
+            C: Number(C),
+            D: Number(D)
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        document.getElementById("results").innerText = "Result: " + result.E;
+      } catch (error) {
+        console.error("Error sending data:", error);
+        document.getElementById("results").innerText = "Error occurred. Check console.";
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Iris Classification</h1>
+  <input type="number" id="numA" placeholder="Enter sepal length" required>
+  <input type="number" id="numB" placeholder="Enter sepal width" required>
+  <input type="number" id="numC" placeholder="Enter petal length" required>
+  <input type="number" id="numD" placeholder="Enter petal width" required>
+  <input type="text" id="username" placeholder="Username" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <button onclick="sendData()">Classify</button>
+  <div id="results">Results:</div>
+</body>
+</html>
