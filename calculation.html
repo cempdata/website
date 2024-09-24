@@ -8,7 +8,8 @@
         async function sendData() {
             const A = document.getElementById("numA").value;
             const B = document.getElementById("numB").value;
-            const ngrokUrl = "https://1b81-34-138-221-134.ngrok-free.app/sum"; // Replace with your actual ngrok URL
+            const D = document.getElementById("numD").value;
+            const ngrokUrl = "https://d69a-34-138-221-134.ngrok-free.app/sum"; // Replace with your actual ngrok URL
 
             try {
                 const response = await fetch(ngrokUrl, {
@@ -36,6 +37,7 @@
     <h1>Sum of Two Numbers</h1>
     <input type="number" id="numA" placeholder="Enter number A" required>
     <input type="number" id="numB" placeholder="Enter number B" required>
+     <input type="number" id="numD" placeholder="Enter number D" required>
     <button onclick="sendData()">Calculate Sum</button>
     <div id="results">Results: </div>
 </body>
