@@ -17,7 +17,7 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ A: Number(A), B: Number(B) })
+                    body: JSON.stringify({ A: Number(A), B: Number(B), D: Number(D) })
                 });
 
                 if (!response.ok) {
@@ -37,7 +37,7 @@
     <h1>Sum of Two Numbers</h1>
     <input type="number" id="numA" placeholder="Enter number A" required>
     <input type="number" id="numB" placeholder="Enter number B" required>
-     <input type="number" id="numD" placeholder="Enter number D" required>
+    <input type="number" id="numD" placeholder="Enter number D" required>
     <button onclick="sendData()">Calculate Sum</button>
     <div id="results">Results: </div>
 </body>
