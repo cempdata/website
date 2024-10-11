@@ -55,7 +55,31 @@
         }
     </style>
     <script>
-        // ... (Your existing JavaScript code) ...
+        async function sendData() {
+            const A = document.getElementById("numA").value;
+            const B = document.getElementById("numB").value;
+            const ngrokUrl = "https://d650-35-238-63-88.ngrok-free.app/sum"; // Replace with your actual ngrok URL
+
+            try {
+                const response = await fetch(ngrokUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ A: Number(A), B: Number(B) })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                document.getElementById("results").innerText = "Result: " + result.C;
+            } catch (error) {
+                console.error("Error sending data:", error);
+                document.getElementById("results").innerText = "Error occurred. Check console.";
+            }
+        }
     </script>
 </head>
 <body>
