@@ -1,0 +1,96 @@
+#þretty html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum of Two Numbers</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff; /* Blue color */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        #results {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        async function sendData() {
+            const A = document.getElementById("numA").value;
+            const B = document.getElementById("numB").value;
+            const ngrokUrl = "https://87c2-35-238-63-88.ngrok-free.app/sum"; // Replace with your actual ngrok URL
+
+            try {
+                const response = await fetch(ngrokUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ A: Number(A), B: Number(B) })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                document.getElementById("results").innerText = "Result: " + result.C;
+            } catch (error) {
+                console.error("Error sending data:", error);
+                document.getElementById("results").innerText = "Error occurred. Check console.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Sum of Two Numbers</h1>
+        <input type="number" id="numA" placeholder="Enter number A" required>
+        <input type="number" id="numB" placeholder="Enter number B" required>
+        <button onclick="sendData()">Calculate Sum</button>
+        <div id="results">Results: </div>
+    </div>
+</body>
+</html>
